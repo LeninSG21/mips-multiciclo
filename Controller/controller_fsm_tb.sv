@@ -22,7 +22,6 @@ module FSM_tb;
     $dumpfile("controller_fsm.vcd");
     $dumpvars(0, FSM_tb);
     
-    
     clk = 0;
     rst = 1;
     opcode = R;

@@ -12,11 +12,6 @@ module rf(
   reg [31:0] mem[31:0];
   int i;
   
-  initial
-  begin
-  	$readmemh("memfile.dat", mem);
-  end
-  
   always @ (posedge clk or rst)
   begin
 
@@ -28,12 +23,13 @@ module rf(
           if(rd_add != 0)
             begin
             mem[rd_add] <= rd_data;
-            $writememh("memfile2.dat", mem);
             end
         end
   end
  
-  assign rs_data = mem[rs_add];
-  assign rt_data = mem[rt_add];
+    always @(posedge clk) begin
+        rs_data <= mem[rs_add];
+        rt_data <= mem[rt_add];  
+    end
   
 endmodule
