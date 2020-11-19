@@ -1,9 +1,9 @@
 module rf(
   //We are asuming always enabled RAM
   input clk, we, rst,
-  input [4:0] rs_addr,
-  input [4:0] rt_addr,
-  input [4:0] rd_addr,
+  input [4:0] rs_add,
+  input [4:0] rt_add,
+  input [4:0] rd_add,
   input [31:0] rd_data,
   output reg [31:0] rs_data,
   output reg [31:0] rt_data
@@ -12,7 +12,7 @@ module rf(
   reg [31:0] mem[31:0];
   int i;
   
-  always @ (posedge clk)
+  always @ (posedge clk or rst)
   begin
 
       if(rst)
@@ -20,14 +20,14 @@ module rf(
           mem[i] <= 0;
       else if(we)
         begin
-          if(rd_addr != 0)
-            mem[rd_addr] <= rd_data;
+          if(rd_add != 0)
+            mem[rd_add] <= rd_data;
         end
   end
  
     always @(posedge clk) begin
-        rs_data <= mem[rs_addr];
-        rt_data <= mem[rt_addr];  
+        rs_data <= mem[rs_add];
+        rt_data <= mem[rt_add];  
     end
   
 endmodule

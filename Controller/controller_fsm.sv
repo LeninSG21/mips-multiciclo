@@ -12,6 +12,7 @@ typedef enum reg [3:0]
 	RCOMP        = 4'b0111,
 	BRANCH       = 4'b1000,
 	JUMP         = 4'b1001,
+    IMM          = 4'b1010,
 	ERROR		 = 4'bXXXX
 } fsm_state;
 
@@ -57,7 +58,7 @@ module controller_fsm (
                     case(opcode)
                         LW : nxtstate = MEMLW;
                         SW : nxtstate = MEMSW;
-                        ADDI: nxtstate = RCOMP;
+                        ADDI: nxtstate = IMM;
                         default : nxtstate = ERROR; 
                     endcase
                 end
@@ -68,6 +69,7 @@ module controller_fsm (
             RCOMP: nxtstate = FETCH;
             BRANCH:  nxtstate = FETCH;
             JUMP  : nxtstate = FETCH;
+            IMM   : nxtstate = FETCH;
             default: nxtstate = INIT;
         endcase
     
@@ -78,7 +80,7 @@ module controller_fsm (
         IRWrite = (state == FETCH);
         PCWrite = (state == FETCH) | (state == JUMP);
         MemWrite = (state == MEMSW);
-        RegWrite = (state == MEMR) | (state == RCOMP);
+        RegWrite = (state == MEMR) | (state == RCOMP) | (state == IMM);
         PCWriteCond = (state == BRANCH);
     end
 
@@ -140,6 +142,10 @@ module controller_fsm (
 	    JUMP:
                 begin
                     PCSource = 2'b10;
+                end
+        IMM:    begin
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
         default:
                 begin

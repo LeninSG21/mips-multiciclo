@@ -16,6 +16,6 @@ module instruction_reg (
     assign opcode = data[31:26];
     assign rs_addr = data[25:21];
     assign rt_addr = data[20:16];
-    assign instruction = data[15:0];
+    assign instruction = data[15:0]
 
 endmodule

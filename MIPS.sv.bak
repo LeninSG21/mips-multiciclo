@@ -1,0 +1,15 @@
+
+module MIPS (
+        input clk, rst
+    );
+
+    wire IorD, MemRead, MemWrite, MemtoReg, IRWrite, RegWrite, RegDst, ALUSrcA,
+    wire [1:0] PCSource, ALUSrcB,
+    wire [2:0] ALUSel,
+    wire [5:0] opcode, func, zero
+    
+    datapath DP(.*);
+
+    control_unit CU(.*);
+
+endmodule

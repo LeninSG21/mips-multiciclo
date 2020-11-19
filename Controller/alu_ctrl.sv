@@ -3,7 +3,8 @@ typedef enum logic [2:0] {
     OR  = 3'b001, 
     ADD = 3'b010, 
     SUB = 3'b110, 
-    SLT = 3'b111
+    SLT = 3'b111,
+    SRLV = 3'b011
 } ALUOp;
 
 module alu_ctrl (
@@ -23,6 +24,7 @@ module alu_ctrl (
                     6'h24   : ALUSel = AND;
                     6'h25   : ALUSel = OR;
                     6'h2A   : ALUSel = SLT;
+                    6'h06   : ALUSel = SRLV;
                     default : ALUSel = 'X;
                 endcase
             end 
