@@ -1,6 +1,7 @@
 
 module MIPS (
         input clk, rst
+        output [3:0] curr_state
     );
 
     wire PCEn, IorD, MemRead, MemWrite, MemtoReg, IRWrite, RegWrite, RegDst, ALUSrcA, zero;

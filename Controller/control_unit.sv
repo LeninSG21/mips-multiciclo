@@ -7,7 +7,8 @@ module control_unit (
         IRWrite, RegWrite, RegDst, ALUSrcA,
         output reg PCEn,
         output [1:0] PCSource, ALUSrcB,
-        output [2:0] ALUSel
+        output [2:0] ALUSel,
+        output [3:0] curr_state
     );
     
     // <>  Implement srlv  <>

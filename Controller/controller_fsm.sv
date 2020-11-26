@@ -23,6 +23,7 @@ module controller_fsm (
         IorD, MemRead, MemWrite, MemtoReg,
         IRWrite, RegWrite, RegDst, ALUSrcA,
         output reg [1:0] PCSource, ALUSrcB, ALUOp 
+        output [3:0] curr_state
     );
     
     parameter LW = 6'b100011;
@@ -33,6 +34,8 @@ module controller_fsm (
     parameter ADDI = 6'b001000;
 
     fsm_state state, nxtstate;
+
+    assign curr_state = state;
     
     // FSM STATE REGISTER, SEQUENTIAL LOGIC
 	always @(posedge clk)
