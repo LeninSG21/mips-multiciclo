@@ -19,11 +19,11 @@ typedef enum reg [3:0]
 
 module controller_fsm (
         input rst, clk,
-        input [5:0] opcode, func,
+        input [5:0] opcode, func
         output reg PCWriteCond, PCWrite,
         IorD, MemRead, MemWrite, MemtoReg,
         IRWrite, RegWrite, RegDst, ALUSrcA,
-        output reg [1:0] PCSource, ALUSrcB, ALUOp, 
+        output reg [1:0] PCSource, ALUSrcB, ALUOp 
         output [3:0] curr_state
     );
     
@@ -73,7 +73,6 @@ module controller_fsm (
                     case(func)
                         6'd8 : nxtstate = JR;
                         default: nxtstate = RCOMP;
-							endcase
                 end
             RCOMP: nxtstate = FETCH;
             BRANCH:  nxtstate = FETCH;

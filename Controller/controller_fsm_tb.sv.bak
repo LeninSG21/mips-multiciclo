@@ -10,7 +10,7 @@ module FSM_tb;
   parameter ADDI = 6'b001000;
   
   reg rst, clk;
-  reg [5:0] opcode, func;
+  reg [5:0] opcode;
   wire PCWriteCond, PCWrite,
         IorD, MemRead, MemWrite, MemtoReg,
         IRWrite, RegWrite, RegDst, ALUSrcA;

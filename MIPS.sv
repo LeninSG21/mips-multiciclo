@@ -1,6 +1,6 @@
 
 module MIPS (
-        input clk, rst
+        input clk, rst,
         input [7:0] sw_addr,
         output [3:0] curr_state,
         output [31:0] out_data,
