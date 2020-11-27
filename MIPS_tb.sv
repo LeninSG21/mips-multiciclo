@@ -8,7 +8,9 @@ module MIPS_tb;
     //Creación de regs y wires
 	reg  clk;
 	reg  rst;
-  wire [3:0] curr_state;
+  reg [6:0] sw_addr;
+  wire [3:0] state;
+  wire [31:0] pc, data;
 
 
     //Instanciar el top
@@ -21,9 +23,10 @@ initial
 
 	clk = 0;
 	rst = 1;
+  sw_addr = 66;
  
     // Cargamos las instrucciones
-    UUT.DP.RAM.mem_space[0]  = 32'h20190200;
+    UUT.DP.RAM.mem_space[0]  = 32'h20190040;
     UUT.DP.RAM.mem_space[1]  = 32'h00008020;
     UUT.DP.RAM.mem_space[2]  = 32'h20110001;
     UUT.DP.RAM.mem_space[3]  = 32'h8F37000F;
@@ -46,7 +49,7 @@ initial
     UUT.DP.RAM.mem_space[20] = 32'h1000FFFF;
 
     //Cargamos dato para fibonacci
-    UUT.DP.RAM.mem_space[512+15] = 5;
+    UUT.DP.RAM.mem_space[64+15] = 5;
 
     #3
     rst = 0;

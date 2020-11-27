@@ -1,4 +1,4 @@
-addi $t9, $0, 512 # Offset de 512
+addi $t9, $0, 64 # Offset de 512
 add $s0, $0, $0 # s0 = 0 --> var 1
 addi $s1, $0, 1 # s1 = 1 --> var 2
 lw $s7, 15($t9) # s7 = D[15] = 3 --> fibonnacci hasta 15
