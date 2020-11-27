@@ -39,7 +39,7 @@ module controller_fsm (
         state <= (rst) ? INIT : nxtstate;
 
     // FSM COMBINATORIAL LOGIC;   STATE TRANSITION LOGIC
-    always @(state) begin
+    always @(state or opcode) begin
         case(state)
             INIT: nxtstate = FETCH;
             FETCH : nxtstate = DECODE;
@@ -91,44 +91,80 @@ module controller_fsm (
         FETCH: 
                 begin
                     ALUSrcA = 0;
-                    IorD = 0;
                     ALUSrcB = 2'b01;
                     ALUOp = 2'b00;
+                    IorD = 0;
                     PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    DECODE:
                 begin
                     ALUSrcA = 0;
                     ALUSrcB = 2'b11;
                     ALUOp = 2'b00;
+                    IorD = 0;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    MADDR:
                 begin
                     ALUSrcA = 1;
                     ALUSrcB = 2'b10;
                     ALUOp = 2'b00;
+                    IorD = 0;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    MEMLW:
                 begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b10;
+                    ALUOp = 2'b00;
                     IorD = 1;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    MEMR:
                 begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b10;
+                    ALUOp = 2'b00;
+                    IorD = 1;
+                    PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 1;
                 end
 	    MEMSW:
                 begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b10;
+                    ALUOp = 2'b00;
                     IorD = 1;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    EXEC:
                 begin
                     ALUSrcA = 1;
                     ALUSrcB = 2'b00;
                     ALUOp = 2'b10;
+                    IorD = 0;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    RCOMP:
                 begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b00;
+                    ALUOp = 2'b10;
+                    IorD = 0;
+                    PCSource = 2'b00;
                     RegDst = 1;
                     MemtoReg = 0;
                 end
@@ -137,30 +173,39 @@ module controller_fsm (
                     ALUSrcA = 1;
                     ALUSrcB = 2'b00;
                     ALUOp = 2'b01;
+                    IorD = 0;
                     PCSource = 2'b01;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
 	    JUMP:
                 begin
+                    ALUSrcA = 0;
+                    ALUSrcB = 2'b11;
+                    ALUOp = 2'b00;
+                    IorD = 0;
                     PCSource = 2'b10;
+                    RegDst = 0;
+                    MemtoReg = 0;
                 end
         IMM:    begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b10;
+                    ALUOp = 2'b00;
+                    IorD = 0;
+                    PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
                 end
         default:
                 begin
-                    PCWriteCond = 'x;
-                    PCWrite = 'x;
-                    IorD = 'x;
-                    MemWrite = 'x;
-                    MemtoReg = 'x;
-                    IRWrite = 'x;
-                    RegWrite ='x;
-                    RegDst = 'x;
-                    ALUSrcA = 'x;
-                    PCSource = 'x;
-                    ALUSrcB = 'x;
-                    ALUOp = 'x;
+                    ALUSrcA  ='x;
+                    ALUSrcB  ='x;
+                    ALUOp    ='x;
+                    IorD     ='x;
+                    PCSource ='x;
+                    RegDst   ='x;
+                    MemtoReg ='x;
                 end
      endcase
     end
