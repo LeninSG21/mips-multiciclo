@@ -36,6 +36,8 @@ module controller_fsm (
 
     fsm_state state, nxtstate;
 
+    // assign curr_state = state;
+
     // FSM STATE REGISTER, SEQUENTIAL LOGIC
 	always @(posedge clk) 
         state <= (rst) ? INIT : nxtstate;

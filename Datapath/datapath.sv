@@ -4,10 +4,10 @@ module datapath (
         IRWrite, RegWrite, RegDst, ALUSrcA,
         input [1:0] PCSource, ALUSrcB,
         input [2:0] ALUSel,
-        input [7:0] sw_addr,
+        input [6:0] sw_addr,
         output [5:0] opcode,func,
 		  output zero,
-          output [31:0] curr_pc, out_data
+          output [31:0] pc, out_data
     );
     
 
@@ -15,11 +15,12 @@ module datapath (
 wire [4:0] write_register;
     wire [31:0] write_data, rf_A, rf_B;
 
-    wire [31:0] next_pc;
+    wire [31:0] next_pc, curr_pc;
     wire [25:0] jmp_offset;
 
     wire [31:0] inst_32b;
 
+    assign pc = curr_pc;
     /******** MEMORY *************/
     wire [4:0] rs_addr, rt_addr;
     wire [15:0] instruction;
