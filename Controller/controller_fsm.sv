@@ -40,7 +40,7 @@ module controller_fsm (
 	always @(posedge clk) 
         state <= (rst) ? INIT : nxtstate;
     // FSM COMBINATORIAL LOGIC;   STATE TRANSITION LOGIC
-    always @(state or opcode) begin
+    always @(state or opcode or func) begin
         case(state)
             INIT: nxtstate = FETCH;
             FETCH : nxtstate = DECODE;

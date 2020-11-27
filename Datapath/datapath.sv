@@ -4,9 +4,10 @@ module datapath (
         IRWrite, RegWrite, RegDst, ALUSrcA,
         input [1:0] PCSource, ALUSrcB,
         input [2:0] ALUSel,
+        input [7:0] sw_addr,
         output [5:0] opcode,func,
 		  output zero,
-          output [31:0] curr_pc
+          output [31:0] curr_pc, out_data
     );
     
 
@@ -28,7 +29,7 @@ wire [4:0] write_register;
 
     assign mem_addr = IorD ? alu_out : curr_pc;
 
-    memory RAM(.clk(clk), .we(MemWrite), .re(MemRead),.Address(mem_addr), .w_data(rf_B),  .mem_data(mem_data));
+    memory RAM(.clk(clk), .we(MemWrite), .re(MemRead),.Address(mem_addr), .w_data(rf_B),  .mem_data(mem_data), .sw_addr(sw_addr), .out_data(out_data));
 
     instruction_reg IR(.clk(clk), .dataIn(mem_data), .IRWrite(IRWrite),
         .opcode(opcode), .rs_addr(rs_addr), .rt_addr(rt_addr), .instruction(instruction));
