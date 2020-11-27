@@ -36,7 +36,7 @@ module controller_fsm (
 
     fsm_state state, nxtstate;
 
-    // assign curr_state = state;
+    assign curr_state = state;
 
     // FSM STATE REGISTER, SEQUENTIAL LOGIC
 	always @(posedge clk) 
@@ -105,7 +105,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h0;
+                    //curr_state = 4'h0;
                 end
 	    DECODE:
                 begin
@@ -116,7 +116,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h1;
+                    //curr_state = 4'h1;
                 end
 	    MADDR:
                 begin
@@ -127,7 +127,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h2;
+                    //curr_state = 4'h2;
                 end
 	    MEMLW:
                 begin
@@ -138,7 +138,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h3;
+                    //curr_state = 4'h3;
                 end
 	    MEMR:
                 begin
@@ -149,7 +149,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 1;
-                    curr_state = 4'h4;
+                    //curr_state = 4'h4;
                 end
 	    MEMSW:
                 begin
@@ -160,7 +160,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h5;
+                    //curr_state = 4'h5;
                 end
 	    EXEC:
                 begin
@@ -171,7 +171,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h6;
+                    //curr_state = 4'h6;
                 end
 	    RCOMP:
                 begin
@@ -182,7 +182,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 1;
                     MemtoReg = 0;
-                    curr_state = 4'h7;
+                    //curr_state = 4'h7;
                 end
 	    BRANCH:
                 begin
@@ -193,7 +193,7 @@ module controller_fsm (
                     PCSource = 2'b01;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h8;
+                    //curr_state = 4'h8;
                 end
 	    JUMP:
                 begin
@@ -204,7 +204,7 @@ module controller_fsm (
                     PCSource = 2'b10;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'h9;
+                    //curr_state = 4'h9;
                 end
         IMM:    begin
                     ALUSrcA = 1;
@@ -214,7 +214,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'hA;
+                    //curr_state = 4'hA;
                 end
         JR  : begin
                     ALUSrcA = 1;
@@ -224,7 +224,7 @@ module controller_fsm (
                     PCSource = 2'b00;
                     RegDst = 0;
                     MemtoReg = 0;
-                    curr_state = 4'hB;
+                    //curr_state = 4'hB;
                 end
         default:
                 begin
@@ -235,7 +235,7 @@ module controller_fsm (
                     PCSource ='x;
                     RegDst   ='x;
                     MemtoReg ='x;
-                    curr_state = 4'hF;
+                    //curr_state = 4'hF;
                 end
      endcase
     end
