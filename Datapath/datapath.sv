@@ -1,10 +1,11 @@
 module datapath (
-        input clk, rst, PCEn,
+        input clk, rst, PCEn, debug,
         input IorD, MemRead, MemWrite, MemtoReg,
         IRWrite, RegWrite, RegDst, ALUSrcA,
         input [1:0] PCSource, ALUSrcB,
         input [2:0] ALUSel,
         input [6:0] sw_addr,
+        input [31:0] debug_inst,
         output [5:0] opcode,func,
 		  output zero,
           output [31:0] pc, out_data
@@ -25,16 +26,23 @@ wire [4:0] write_register;
     wire [4:0] rs_addr, rt_addr;
     wire [15:0] instruction;
     wire [31:0] mem_data, data, mem_addr;
+    
+    //Signals for debugging with testbench
+    wire [31:0] full_inst;
+    assign full_inst = debug ? debug_inst : mem_data;
+
 
     assign func = instruction[5:0];
 
     assign mem_addr = IorD ? alu_out : curr_pc;
 
+
+
     memory RAM(.clk(clk), .we(MemWrite), .re(MemRead),.Address(mem_addr), .w_data(rf_B),  .mem_data(mem_data), .sw_addr(sw_addr), .out_data(out_data));
 
-    instruction_reg IR(.clk(clk), .dataIn(mem_data), .IRWrite(IRWrite),
+    instruction_reg IR(.clk(clk), .dataIn(full_inst), .IRWrite(IRWrite),
         .opcode(opcode), .rs_addr(rs_addr), .rt_addr(rt_addr), .instruction(instruction));
-    data_reg DR(.clk(clk), .dataIn(mem_data), .dataOut(data));
+    data_reg DR(.clk(clk), .dataIn(full_inst), .dataOut(data));
 
     /************* REGISTER FILE ***************/
     
