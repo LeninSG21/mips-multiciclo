@@ -13,12 +13,13 @@ typedef enum reg [3:0]
 	BRANCH       = 4'b1000,
 	JUMP         = 4'b1001,
     IMM          = 4'b1010,
+    JR           = 4'b1011,
 	ERROR		 = 4'bXXXX
 } fsm_state;
 
 module controller_fsm (
         input rst, clk,
-        input [5:0] opcode,
+        input [5:0] opcode,func,
         output reg PCWriteCond, PCWrite,
         IorD, MemRead, MemWrite, MemtoReg,
         IRWrite, RegWrite, RegDst, ALUSrcA,
@@ -65,7 +66,12 @@ module controller_fsm (
             MEMLW: nxtstate = MEMR;
             MEMR: nxtstate =  FETCH;
             MEMSW: nxtstate =   FETCH;
-            EXEC: nxtstate = RCOMP;
+            EXEC: begin
+                case(func)
+                    6'd8 : nxtstate = JR;
+                    default : nxtstate = RCOMP;
+                endcase 
+            end
             RCOMP: nxtstate = FETCH;
             BRANCH:  nxtstate = FETCH;
             JUMP  : nxtstate = FETCH;
@@ -192,6 +198,15 @@ module controller_fsm (
                     ALUSrcA = 1;
                     ALUSrcB = 2'b10;
                     ALUOp = 2'b00;
+                    IorD = 0;
+                    PCSource = 2'b00;
+                    RegDst = 0;
+                    MemtoReg = 0;
+                end
+        JR  : begin
+                    ALUSrcA = 1;
+                    ALUSrcB = 2'b00;
+                    ALUOp = 2'b10;
                     IorD = 0;
                     PCSource = 2'b00;
                     RegDst = 0;
