@@ -1,7 +1,8 @@
 
 module MIPS (
         input clk, rst, 
-        output [3:0] state
+        output [3:0] state,
+        output [31:0] pc
     );
 
     wire PCEn, IorD, MemRead, MemWrite, MemtoReg, IRWrite, RegWrite, RegDst, ALUSrcA, zero;
@@ -9,6 +10,7 @@ module MIPS (
     wire [2:0] ALUSel;
     wire [5:0] opcode, func;
     wire [3:0] curr_state;
+    wire [31:0] curr_pc;
     
     // assign state = 1 ? curr_state : 'x;
 
