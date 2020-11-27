@@ -8,6 +8,7 @@ module MIPS_tb;
     //Creación de regs y wires
 	reg  clk;
 	reg  rst;
+  wire [3:0] curr_state;
 
 
     //Instanciar el top
