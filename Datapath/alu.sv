@@ -14,15 +14,14 @@ module alu(
 
   assign zero = out == 0;
   
-  always @(*) //Error pasado, alu solo cambia al cambiar el selector
+  always @(*) 
     begin
-      
       case(sel)
         AND   : out = A & B;
         OR    : out = A | B;
         ADD   : out = A + B;
-        SUB   : out = A -B;
-        SLT   : out = A < B;
+        SUB   : out = A - B;
+        SLT   : out = $signed(A) < $signed(B);
         SRLV  : out = B >> A;
         default : out = 'x;
       endcase

@@ -1,5 +1,3 @@
-// `include "controller_fsm.sv"
-// `include "alu_ctrl.sv"
 module control_unit (
         input rst, clk, zero,
         input [5:0] opcode, func, 
@@ -11,8 +9,6 @@ module control_unit (
         output [3:0] curr_state
     );
     
-    // <>  Implement srlv  <>
-
     wire PCWriteCond, PCWrite;
 	 wire [1:0] ALUOp;
 

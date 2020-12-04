@@ -14,7 +14,7 @@ module MIPS_tb;
 
 
     //Instanciar el top
-    MIPS UUT(.*);
+    MIPS UUT(.debug(0), .debug_inst(0), .*);
 
 initial
   begin
@@ -26,30 +26,34 @@ initial
   sw_addr = 66;
  
     // Cargamos las instrucciones
-    UUT.DP.RAM.mem_space[0]  = 32'h20190040;
-    UUT.DP.RAM.mem_space[1]  = 32'h00008020;
-    UUT.DP.RAM.mem_space[2]  = 32'h20110001;
-    UUT.DP.RAM.mem_space[3]  = 32'h8F37000F;
-    UUT.DP.RAM.mem_space[4]  = 32'h20160001;
-    UUT.DP.RAM.mem_space[5]  = 32'h00007820;
-    UUT.DP.RAM.mem_space[6]  = 32'h01F7402A;
-    UUT.DP.RAM.mem_space[7]  = 32'h10080007;
-    UUT.DP.RAM.mem_space[8]  = 32'h02119020;
-    UUT.DP.RAM.mem_space[9]  = 32'hAF310001;
-    UUT.DP.RAM.mem_space[10] = 32'hAF320002;
-    UUT.DP.RAM.mem_space[11] = 32'h8F300001;
-    UUT.DP.RAM.mem_space[12] = 32'h8F310002;
-    UUT.DP.RAM.mem_space[13] = 32'h01F67820;
-    UUT.DP.RAM.mem_space[14] = 32'h08000006;
-    UUT.DP.RAM.mem_space[15] = 32'h02308022;
-    UUT.DP.RAM.mem_space[16] = 32'hAF300000;
-    UUT.DP.RAM.mem_space[17] = 32'h02309024;
-    UUT.DP.RAM.mem_space[18] = 32'h02309025;
-    UUT.DP.RAM.mem_space[19] = 32'h02D29006;
-    UUT.DP.RAM.mem_space[20] = 32'h1000FFFF;
+    UUT.DP.RAM.mem_space[0]  = 32'h8C08003F;
+    UUT.DP.RAM.mem_space[1]  = 32'h20090001;
+    UUT.DP.RAM.mem_space[2]  = 32'h2018000A;
+    UUT.DP.RAM.mem_space[3]  = 32'h200C003F;
+    UUT.DP.RAM.mem_space[4]  = 32'h11100009;
+    UUT.DP.RAM.mem_space[5]  = 32'h01305824;
+    UUT.DP.RAM.mem_space[6]  = 32'h112B0002;
+    UUT.DP.RAM.mem_space[7]  = 32'h02308822;
+    UUT.DP.RAM.mem_space[8]  = 32'h03000008;
+    UUT.DP.RAM.mem_space[9]  = 32'h02308820;
+    UUT.DP.RAM.mem_space[10] = 32'h020C6824;
+    UUT.DP.RAM.mem_space[11] = 32'hADB10040;
+    UUT.DP.RAM.mem_space[12] = 32'h22100001;
+    UUT.DP.RAM.mem_space[13] = 32'h08000004;
+    UUT.DP.RAM.mem_space[14] = 32'h0220A02A;
+    UUT.DP.RAM.mem_space[15] = 32'h200C01FF;
+    UUT.DP.RAM.mem_space[16] = 32'h0191A82A;
+    UUT.DP.RAM.mem_space[17] = 32'h0295B025;
+    UUT.DP.RAM.mem_space[18] = 32'h01896024;
+    UUT.DP.RAM.mem_space[19] = 32'h12C00001;
+    UUT.DP.RAM.mem_space[20] = 32'h200C0004;
+    UUT.DP.RAM.mem_space[21] = 32'h01884006;
+    UUT.DP.RAM.mem_space[22] = 32'hAC08003F;
 
-    //Cargamos dato para fibonacci
-    UUT.DP.RAM.mem_space[64+15] = 5;
+
+    //límite
+    UUT.DP.RAM.mem_space[63] = 1023;
+
 
     #3
     rst = 0;

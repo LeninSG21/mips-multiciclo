@@ -1,17 +1,15 @@
-typedef enum logic [2:0] { 
-    AND = 3'b000, 
-    OR  = 3'b001, 
-    ADD = 3'b010, 
-    SUB = 3'b110, 
-    SLT = 3'b111,
-    SRLV = 3'b011
-} ALUOp;
-
 module alu_ctrl (
         input [1:0] ALUOp,
         input [5:0] func,
         output reg[2:0] ALUSel
     );
+
+    parameter AND  = 3'b000; 
+    parameter OR   = 3'b001; 
+    parameter ADD  = 3'b010; 
+    parameter SUB  = 3'b110; 
+    parameter SLT  = 3'b111;
+    parameter SRLV = 3'b011;
     
     always @(ALUOp or func) begin
         case(ALUOp)
@@ -25,6 +23,7 @@ module alu_ctrl (
                     6'h25   : ALUSel = OR;
                     6'h2A   : ALUSel = SLT;
                     6'h06   : ALUSel = SRLV;
+                    6'h08   : ALUSel = ADD; //JR
                     default : ALUSel = 'X;
                 endcase
             end 

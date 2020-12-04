@@ -1,6 +1,6 @@
 module memory(
     input [31:0] Address, w_data,
-	input [6:0] sw_addr,
+	input [6:0] sw_addr, //debug address
     input clk, we, re,
     output reg  [31:0] mem_data, out_data
 );
@@ -9,13 +9,12 @@ module memory(
 
 	  always @ (posedge clk)
 		  begin
-				if(we)
-					 mem_space[Address] <= w_data;
-				//else if(re)
-				//	 mem_data <= mem_space[Address];
+				if(we) //synchronous write
+					mem_space[Address] <= w_data;
 		  end
 		
+		//combinational read with a tri-state buffer
 		assign mem_data = re ? mem_space[Address] : 'Z;
-		assign out_data = mem_space[sw_addr];
+		assign out_data = mem_space[sw_addr]; //debug read port
 
 endmodule

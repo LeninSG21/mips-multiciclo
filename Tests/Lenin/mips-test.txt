@@ -1,0 +1,23 @@
+lw $t0, 63($0) # t0 = D[63] --> loop lim
+addi $t1, $0, 1 # constant 1
+addi $t8, $0, 10 # address for jr
+addi $t4, $0, 63 # constant for and
+for: beq $t0, $s0, next # for s0 in range(t0)
+and $t3, $t1, $s0 # t3 = s0 & 1
+beq $t1, $t3, notDiv # s0 % 2 == 1
+sub $s1, $s1, $s0 # s1 -= s0
+jr $t8 # jump to 0xA
+notDiv:add $s1, $s1, $s0 # s1 += s0
+and $t5, $s0, $t4 # t5 = s0 & 63 ; addr = 0xA
+sw $s1, 64($t5)
+addi $s0, $s0, 1 # s0++
+j 4 # Go back to loop
+next: slt $s4, $s1, $0 # s4 = s1 < 0
+addi $t4, $0, 511 
+slt $s5, $t4, $s1 # s5 = t4 < s1 
+or $s6, $s4, $s5 # s6 = s4 | s5
+and $t4, $t4, $t1 # t4 = t4 & 1
+beq $s6, $0, false # if s1 < 0 or s1 > t4
+addi $t4, $0, 4
+false:srlv $t0, $t0, $t4 # t0 = t0 >> t4
+sw $t0, 63($0)

@@ -14,17 +14,14 @@ module rf(
   
   always @ (posedge clk)
   begin
-
       if(rst)
         for(i = 0; i <= 31; i = i+1)
           mem[i] <= 0;
       else if(we)
-        begin
-          if(rd_addr != 0)
+          if(rd_addr != 0) //cannot write into $0.
             mem[rd_addr] <= rd_data;
-        end
   end
- 
+    //Out register. A and B in the diagram
     always @(posedge clk) begin
         rs_data <= mem[rs_addr];
         rt_data <= mem[rt_addr];  
